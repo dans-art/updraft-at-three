@@ -9,7 +9,7 @@
  * Requires PHP: 7.4
  * Author: DansArt
  * Author URI: http://dans-art.ch
- * Text Domain: wctt
+ * Text Domain: uat
  * Domain Path: /languages
  * License: GPLv2 or later
  */
