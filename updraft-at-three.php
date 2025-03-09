@@ -16,6 +16,10 @@
 
 namespace UpdraftAtThree;
 
+require_once(__DIR__ . '/include/github-updater.php');
+
+$github_updater = new \GithubUpdater('updraft-at-three', 'dans-art/updraft-at-three', 'https://github.com/dans-art/updraft-at-three');
+
 add_filter('updraftplus_schedule_firsttime_db', '\\UpdraftAtThree\\schedule_firsttime_filter');
 add_filter('updraftplus_schedule_firsttime_files', '\\UpdraftAtThree\\schedule_firsttime_filter');
 
