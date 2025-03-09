@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Updraft at three
  * Description: Schedules the time of the Backup for 3AM
- * Version: 1.0
+ * Version: 1.2.1
  * Requires at least: 5.6
  * Tested up to: 5.7
  * Requires PHP: 7.4

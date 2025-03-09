@@ -15,6 +15,14 @@ if (! class_exists('GithubUpdater')) {
         private $github_api_url;
         private $github_token;
 
+        /**
+         * Initialize the Github Updater.
+         *
+         * @param string $plugin_slug The slug of the plugin, e.g. `my-plugin/my-plugin.php`.
+         * @param string $repo_slug The slug of the Github repository, e.g. `dans-art/updraft-at-three`.
+         * @param string $github_url The URL to the Github repository, e.g. `https://github.com/dans-art/updraft-at-three`.
+         * @param string $github_token The Github token to use for authentication. Optional.
+         */
         function __construct($plugin_slug, $repo_slug, $github_url, $github_token = "")
         {
             $this->github_url = $github_url;
@@ -26,6 +34,14 @@ if (! class_exists('GithubUpdater')) {
             add_filter('upgrader_pre_download', array($this, 'download_plugin'), 10, 2);
         }
 
+        /**
+         * Check for updates to the plugin.
+         *
+         * This function is run when WordPress checks for updates to plugins. If a new version is available, the update is added to the transient.
+         *
+         * @param object $transient The update transient.
+         * @return object The update transient.
+         */
         public function check_for_update($transient)
         {
             $plugin = get_plugin_data(WP_PLUGIN_DIR . '/' . $this->plugin_slug . '/' . $this->plugin_slug . '.php');
@@ -55,6 +71,13 @@ if (! class_exists('GithubUpdater')) {
             return $transient;
         }
 
+        /**
+         * Gets the latest version of the plugin from GitHub.
+         *
+         * Queries the GitHub API to get the latest version of the plugin. If a GitHub token is set, it is used to authenticate.
+         *
+         * @return object The data from the latest version of the plugin on GitHub, or false if there is an error.
+         */
         private function get_github_repo()
         {
             if (!empty($this->github_token)) {
@@ -75,6 +98,12 @@ if (! class_exists('GithubUpdater')) {
             return json_decode(wp_remote_retrieve_body($response));
         }
 
+        /**
+         * Gets the URL for downloading the latest version of the plugin from GitHub.
+         *
+         * @param object $release_data The data from the latest version of the plugin on GitHub.
+         * @return string The URL for downloading the latest version of the plugin.
+         */
         private function get_zip_download_url($release_data)
         {
             return $this->github_url . '/archive/refs/tags/' . $release_data->tag_name . '.zip';
