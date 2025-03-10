@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Updraft at three
  * Description: Schedules the time of the Backup for 3AM
- * Version: 1.0
+ * Version: 1.1
  * Requires at least: 5.6
  * Tested up to: 5.7
  * Requires PHP: 7.4
@@ -15,6 +15,10 @@
  */
 
 namespace UpdraftAtThree;
+
+require_once(__DIR__ . '/include/da-updater.php');
+
+$github_updater = new \DaUpdater('updraft-at-three');
 
 add_filter('updraftplus_schedule_firsttime_db', '\\UpdraftAtThree\\schedule_firsttime_filter');
 add_filter('updraftplus_schedule_firsttime_files', '\\UpdraftAtThree\\schedule_firsttime_filter');
